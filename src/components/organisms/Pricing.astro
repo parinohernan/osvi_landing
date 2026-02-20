@@ -1,0 +1,68 @@
+---
+// src/components/organisms/Pricing.astro
+
+import PricingCard from '../molecules/PricingCard.astro';
+import Typography from '../atoms/Typography.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  pricing: {
+    installments: number;
+    installmentPrice: number;
+    setup: number;
+    monthly: number;
+    trialMonths: number;
+    features: string[];
+  };
+  whatsappNumber: string;
+}
+
+const { title, subtitle, pricing, whatsappNumber } = Astro.props;
+---
+
+<section class="pricing" id="precio">
+  <div class="pricing__container">
+    <header class="pricing__header">
+      <Typography variant="h2" as="h2">{title}</Typography>
+      <Typography variant="lead">{subtitle}</Typography>
+    </header>
+    
+    <PricingCard 
+      installments={pricing.installments}
+      installmentPrice={pricing.installmentPrice}
+      setupPrice={pricing.setup}
+      monthlyPrice={pricing.monthly}
+      trialMonths={pricing.trialMonths}
+      features={pricing.features}
+      whatsappNumber={whatsappNumber}
+    />
+    
+    <div class="pricing__guarantee">
+      <Typography variant="small">
+        💬 Sin soporte robotizado. Hablamos por WhatsApp como corresponde.
+      </Typography>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: var(--space-3xl) var(--space-xl);
+    background: var(--color-surface);
+  }
+  .pricing__container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+  .pricing__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-2xl);
+  }
+  .pricing__guarantee {
+    text-align: center;
+    margin-top: var(--space-xl);
+    color: var(--color-text-muted);
+  }
+</style>

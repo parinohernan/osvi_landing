@@ -1,0 +1,89 @@
+---
+// src/components/organisms/Footer.astro
+
+import Icon from '../atoms/Icon.astro';
+import { formatPhoneDisplay } from '../../utils/formatters';
+
+interface Props {
+  phone: string;
+  email: string;
+  location: string;
+}
+
+const { phone, email, location } = Astro.props;
+---
+
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__brand">
+      <strong>Osvi + Janus</strong>
+      <p>Sistema de gestión para distribuidoras mayoristas del interior argentino.</p>
+    </div>
+    
+    <div class="footer__contact">
+      <a href={`tel:${phone}`} class="footer__link">
+        <Icon name="smartphone" size={16} />
+        {formatPhoneDisplay(phone)}
+      </a>
+      <a href={`mailto:${email}`} class="footer__link">
+        {email}
+      </a>
+      <span class="footer__location">
+        {location}
+      </span>
+    </div>
+    
+    <div class="footer__legal">
+      <p>© {new Date().getFullYear()} - Hecho a mano en Darregueira, La Pampa</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-text);
+    color: white;
+    padding: var(--space-2xl) var(--space-xl);
+  }
+  .footer__container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+  .footer__brand strong {
+    display: block;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-sm);
+  }
+  .footer__brand p {
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+  }
+  .footer__link {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .footer__link:hover {
+    color: var(--color-primary);
+  }
+  .footer__location {
+    color: var(--color-text-muted);
+  }
+  .footer__legal {
+    padding-top: var(--space-xl);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+</style>

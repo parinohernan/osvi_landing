@@ -1,0 +1,85 @@
+---
+// src/components/organisms/FAQ.astro
+
+import Typography from '../atoms/Typography.astro';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  items: FAQItem[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section class="faq" id="faq">
+  <div class="faq__container">
+    <Typography variant="h2" as="h2" class="faq__title">{title}</Typography>
+    
+    <div class="faq__list">
+      {items.map((item, index) => (
+        <details class="faq__item" name="faq">
+          <summary class="faq__question">
+            <Typography variant="h4" as="h3">{item.question}</Typography>
+            <span class="faq__icon">+</span>
+          </summary>
+          <div class="faq__answer">
+            <Typography variant="body">{item.answer}</Typography>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: var(--space-3xl) var(--space-xl);
+    background: var(--color-surface);
+  }
+  .faq__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .faq__title {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .faq__item {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .faq__question {
+    padding: var(--space-lg) var(--space-xl);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+  .faq__icon {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    transition: transform var(--transition-base);
+  }
+  .faq__item[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+  .faq__answer {
+    padding: 0 var(--space-xl) var(--space-xl);
+    color: var(--color-text-muted);
+  }
+</style>

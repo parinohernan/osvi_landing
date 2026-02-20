@@ -1,0 +1,70 @@
+---
+// src/components/molecules/TestimonialCard.astro
+
+import Typography from '../atoms/Typography.astro';
+
+interface Props {
+  quote: string;
+  author: string;
+  company: string;
+  location: string;
+  years: string;
+}
+
+const { quote, author, company, location, years } = Astro.props;
+---
+
+<blockquote class="testimonial">
+  <div class="testimonial__quote">
+    <Typography variant="lead">"{quote}"</Typography>
+  </div>
+  <footer class="testimonial__footer">
+    <div class="testimonial__avatar">
+      {company.charAt(0)}
+    </div>
+    <div class="testimonial__meta">
+      <strong>{company}</strong>
+      <span>{location} • {years}</span>
+    </div>
+  </footer>
+</blockquote>
+
+<style>
+  .testimonial {
+    background: white;
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+  .testimonial__quote {
+    margin-bottom: var(--space-lg);
+    font-style: italic;
+  }
+  .testimonial__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .testimonial__avatar {
+    width: 48px;
+    height: 48px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+  }
+  .testimonial__meta {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+  .testimonial__meta strong {
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+  }
+</style>

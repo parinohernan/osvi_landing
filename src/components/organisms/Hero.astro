@@ -1,0 +1,186 @@
+---
+// src/components/organisms/Hero.astro
+
+import Button from '../atoms/Button.astro';
+import Icon from '../atoms/Icon.astro';
+import Typography from '../atoms/Typography.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaPrimary: { text: string; href: string };
+  ctaSecondary: { text: string; href: string };
+}
+
+const { title, subtitle, ctaPrimary, ctaSecondary } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero__container">
+    <div class="hero__content">
+      <Typography variant="h1" as="h1">{title}</Typography>
+      <Typography variant="lead" class="hero__subtitle">{subtitle}</Typography>
+      
+      <div class="hero__ctas">
+        <Button href={ctaPrimary.href} size="lg">
+          <Icon name="whatsapp" size={20} />
+          {ctaPrimary.text}
+        </Button>
+        <Button href={ctaSecondary.href} variant="outline" size="lg">
+          {ctaSecondary.text}
+        </Button>
+      </div>
+      
+      <div class="hero__social-proof">
+        <div class="hero__avatars">
+          <span>+</span>
+          <span>+</span>
+          <span>+</span>
+        </div>
+        <p>4 distribuidoras confían en nosotros desde hace 10 años</p>
+      </div>
+    </div>
+    
+    <div class="hero__visual">
+      <div class="hero__phone">
+        <div class="hero__screen">
+          <div class="hero__app-preview">
+            <div class="hero__app-header">Osvi App</div>
+            <div class="hero__app-item">
+              <span>🍬</span>
+              <div>
+                <strong>Caramelos Arcor</strong>
+                <small>50 unidades</small>
+              </div>
+            </div>
+            <div class="hero__app-item">
+              <span>🍫</span>
+              <div>
+                <strong>Chocolate Ferrero</strong>
+                <small>20 unidades</small>
+              </div>
+            </div>
+            <div class="hero__app-total">
+              Total: $45.000
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: calc(80px + var(--space-3xl)) var(--space-xl) var(--space-3xl);
+    background: linear-gradient(180deg, var(--color-surface) 0%, white 100%);
+  }
+  .hero__container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+  .hero__subtitle {
+    margin: var(--space-lg) 0 var(--space-xl);
+  }
+  .hero__ctas {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .hero__social-proof {
+    margin-top: var(--space-2xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+  .hero__avatars {
+    display: flex;
+  }
+  .hero__avatars span {
+    width: 32px;
+    height: 32px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    border: 2px solid white;
+    margin-left: -8px;
+  }
+  .hero__avatars span:first-child {
+    margin-left: 0;
+  }
+  
+  .hero__phone {
+    width: 280px;
+    height: 560px;
+    background: var(--color-text);
+    border-radius: 40px;
+    padding: 12px;
+    margin: 0 auto;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  }
+  .hero__screen {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 32px;
+    overflow: hidden;
+  }
+  .hero__app-preview {
+    padding: var(--space-lg);
+  }
+  .hero__app-header {
+    background: var(--color-primary);
+    color: white;
+    padding: var(--space-md);
+    margin: calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-lg);
+    font-weight: 600;
+  }
+  .hero__app-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hero__app-item span {
+    font-size: 24px;
+  }
+  .hero__app-item small {
+    display: block;
+    color: var(--color-text-muted);
+  }
+  .hero__app-total {
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    text-align: right;
+    font-weight: 700;
+  }
+  
+  @media (max-width: 968px) {
+    .hero__container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero__ctas {
+      justify-content: center;
+    }
+    .hero__social-proof {
+      justify-content: center;
+    }
+    .hero__phone {
+      display: none;
+    }
+  }
+</style>

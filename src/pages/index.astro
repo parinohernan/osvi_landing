@@ -1,0 +1,74 @@
+---
+// src/pages/index.astro
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/organisms/Header.astro';
+import Hero from '../components/organisms/Hero.astro';
+import Features from '../components/organisms/Features.astro';
+import Pricing from '../components/organisms/Pricing.astro';
+import Testimonials from '../components/organisms/Testimonials.astro';
+import FAQ from '../components/organisms/FAQ.astro';
+import Footer from '../components/organisms/Footer.astro';
+
+import { siteConfig, valuePropositions, pricing, testimonials, faqs } from '../data/content';
+
+const heroContent = {
+  title: 'Dejá de perder horas cargando preventas',
+  subtitle: 'Osvi es la app que tus vendedores usan para cargar pedidos sin internet. Janus es el sistema central que organiza tu stock, facturación y cuentas corrientes. Diseñado para distribuidoras de golosinas y alimentos del interior.',
+  ctaPrimary: {
+    text: 'Consultar ahora',
+    href: `https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, '')}?text=Hola, vi la landing y quiero consultar por el sistema.`
+  },
+  ctaSecondary: {
+    text: 'Ver cómo funciona',
+    href: '#funciones'
+  }
+};
+---
+
+<Layout 
+  title={`${siteConfig.name} - ${siteConfig.tagline}`}
+  description={siteConfig.description}
+>
+  <Header whatsappNumber={siteConfig.contact.whatsapp} />
+  
+  <main>
+    <Hero {...heroContent} />
+    
+    <Features 
+      title="Todo lo que necesitás, nada de lo que no"
+      subtitle="Sabemos que en una distribuidora del interior no hay tiempo para sistemas complicados. Por eso hicimos Osvi + Janus: tan simple como querás, tan completo como necesites."
+      features={valuePropositions}
+    />
+    
+    <Pricing 
+      title="Precio claro, sin sorpresas"
+      subtitle="Pagalo en 3 cuotas. Incluye configuración completa y 6 meses de servicio gratis. Después, un precio mensual accesible para distribuidoras reales."
+      pricing={{
+        installments: pricing.installments,
+        installmentPrice: pricing.installmentPrice,
+        setup: pricing.setup,
+        monthly: pricing.monthlyPrice,
+        trialMonths: pricing.trialMonths,
+        features: pricing.features
+      }}
+      whatsappNumber={siteConfig.contact.whatsapp}
+    />
+    
+    <Testimonials 
+      title="Distribuidoras que ya lo usan"
+      testimonials={testimonials}
+    />
+    
+    <FAQ 
+      title="Preguntas frecuentes"
+      items={faqs}
+    />
+  </main>
+  
+  <Footer 
+    phone={siteConfig.contact.whatsapp}
+    email={siteConfig.contact.email}
+    location={siteConfig.contact.location}
+  />
+</Layout>

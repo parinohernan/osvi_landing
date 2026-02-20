@@ -1,0 +1,59 @@
+---
+// src/components/organisms/Testimonials.astro
+
+import TestimonialCard from '../molecules/TestimonialCard.astro';
+import Typography from '../atoms/Typography.astro';
+
+interface Testimonial {
+  id: number;
+  quote: string;
+  author: string;
+  company: string;
+  location: string;
+  years: string;
+}
+
+interface Props {
+  title: string;
+  testimonials: Testimonial[];
+}
+
+const { title, testimonials } = Astro.props;
+---
+
+<section class="testimonials" id="testimonios">
+  <div class="testimonials__container">
+    <Typography variant="h2" as="h2" class="testimonials__title">{title}</Typography>
+    
+    <div class="testimonials__grid">
+      {testimonials.map(t => (
+        <TestimonialCard {...t} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: var(--space-3xl) var(--space-xl);
+    background: white;
+  }
+  .testimonials__container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+  .testimonials__title {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-xl);
+  }
+  @media (max-width: 640px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

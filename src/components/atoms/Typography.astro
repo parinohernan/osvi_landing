@@ -1,0 +1,60 @@
+---
+// src/components/atoms/Typography.astro
+// Factory pattern para tipografía consistente
+
+interface Props {
+  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'lead' | 'small';
+  as?: string;
+  class?: string;
+}
+
+const { variant, as, class: className = '' } = Astro.props;
+
+const tagMap = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  body: 'p',
+  lead: 'p',
+  small: 'span'
+};
+
+const Tag = as || tagMap[variant];
+const classes = `typography typography--${variant} ${className}`;
+---
+
+<Tag class={classes}>
+  <slot />
+</Tag>
+
+<style>
+  .typography {
+    margin: 0;
+    color: var(--color-text);
+  }
+  .typography--h1 {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .typography--h2 {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .typography--h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+  }
+  .typography--lead {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+  .typography--body {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+  }
+</style>

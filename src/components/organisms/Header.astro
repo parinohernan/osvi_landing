@@ -1,0 +1,137 @@
+---
+// src/components/organisms/Header.astro
+
+import Button from '../atoms/Button.astro';
+import Icon from '../atoms/Icon.astro';
+
+interface Props {
+  whatsappNumber: string;
+}
+
+const { whatsappNumber } = Astro.props;
+
+const navLinks = [
+  { href: '#funciones', label: 'Funciones' },
+  { href: '#precio', label: 'Precio' },
+  { href: '#testimonios', label: 'Testimonios' },
+  { href: '#faq', label: 'FAQ' }
+];
+---
+
+<header class="header">
+  <div class="header__container">
+    <a href="/" class="header__logo">
+      <span class="header__logo--primary">Osvi</span>
+      <span class="header__logo--secondary">+ Janus</span>
+    </a>
+    
+    <nav class="header__nav" id="nav-menu">
+      {navLinks.map(link => (
+        <a href={link.href} class="header__link">{link.label}</a>
+      ))}
+    </nav>
+    
+    <div class="header__actions">
+      <Button 
+        href={`https://wa.me/${whatsappNumber.replace(/\D/g, '')}`}
+        variant="outline"
+        size="sm"
+      >
+        <Icon name="whatsapp" size={18} />
+        Contactar
+      </Button>
+      
+      <button class="header__menu-toggle" aria-label="Menu" id="menu-toggle">
+        <Icon name="menu" size={24} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('nav-menu');
+  
+  toggle?.addEventListener('click', () => {
+    nav?.classList.toggle('is-open');
+  });
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 100;
+  }
+  .header__container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-md) var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header__logo {
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    text-decoration: none;
+    display: flex;
+    gap: var(--space-xs);
+  }
+  .header__logo--primary {
+    color: var(--color-primary);
+  }
+  .header__logo--secondary {
+    color: var(--color-text);
+  }
+  .header__nav {
+    display: flex;
+    gap: var(--space-xl);
+  }
+  .header__link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+  .header__link:hover {
+    color: var(--color-primary);
+  }
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .header__menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+  }
+  
+  @media (max-width: 768px) {
+    .header__nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      flex-direction: column;
+      padding: var(--space-xl);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .header__nav.is-open {
+      display: flex;
+    }
+    .header__menu-toggle {
+      display: block;
+    }
+  }
+</style>
