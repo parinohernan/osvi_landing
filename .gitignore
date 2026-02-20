@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Astro
+dist/
+.astro/
+
+# Build
+*.local
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.DS_Store
+*.log
+*.tgz
+
+# Debug
+npm-debug.log*
